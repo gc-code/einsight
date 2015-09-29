@@ -1,0 +1,5 @@
+    ELASTICQUERY
+----------------------
+
+This is a simple script used to query CASTOR logs.
+The table fields returned by the command can be configured using the 'elasticquery.json' file.
