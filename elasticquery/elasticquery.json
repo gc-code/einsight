@@ -1,0 +1,22 @@
+{
+    "server" : "example.com",
+    "port" : "0000",
+    "index" : "logstash-%(year)d.%(month)02d.%(day)02d",
+    "field" : ["@timestamp",
+               "@source_host",
+               "castor_REQID",
+               "castor_MSG",
+               "castor_NSFILEID",
+               "syslog_program" 
+                ],
+    "date_range": {
+                "@timestamp": {
+                "format": "yyyy-MM-dd'T'HH:mm:ss",
+                "ranges": [
+                    { "from": "now" },
+                    { "to": "now+1h" }
+                ]
+               }
+      }
+}
+
