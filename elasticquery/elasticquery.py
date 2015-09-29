@@ -29,6 +29,7 @@ parser.add_argument('field', type=str, help='')
 parser.add_argument('value',type=str, help='')
 parser.add_argument('--days', type=int, default=1, help='')
 parser.add_argument('--hours', type=int,default=1, help='')
+parser.add_argument('-n', type=int, dest="num_results", default=100, help='')
  
 args = parser.parse_args() 
 now = datetime.now()
@@ -42,12 +43,15 @@ def date_info():
   }
 fields = config['field'] 
 table= PrettyTable(field_names=fields)
+
+num_results = args.num_results
 le = []
 for day in range (args.days):
 
  for hour in range(args.hours):
    
-    url = 'http://%(server)s:%(port)s/%(index)s/_search?size=100&q='%config
+    url = 'http://%(server)s:%(port)s/%(index)s/_search?scroll=1h&size=' + str(num_results) + '&q='
+    url = url % config
     url = url % date_info()
     url += '%(field)s:%%22%(value)s%%22' % vars(args)
     query = urllib.quote(url, safe="%/:=&?~#+!$,;'@()*")
